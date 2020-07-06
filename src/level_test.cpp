@@ -15,10 +15,13 @@
 #include "Logger.h"
 
 
-IStateClassBase::StateReturnCode CLevelTest::StateEntry(SFactoryComponentList& list)
+void CLevelTest::Initialise(SFactoryComponentList& list)
 {
     p_list = &list;
+}
 
+IStateClassBase::StateReturnCode CLevelTest::StateEntry()
+{
     CLogger::Print(LOGLEV_RUN, "StateEntry");
     p_list->p_moduleTest->Initialise();
     return StateCodeEntryOK;

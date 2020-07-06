@@ -10,11 +10,13 @@
 #ifndef STATEMACHINE_H
 #define STATEMACHINE_H
 
+#include "StateMachineBase.h"
+
 #include <thread>
 
 struct SFactoryComponentList;
 
-class CStateMachine
+class CStateMachine : public CStateMachineBase
 {
 public:
     CStateMachine()
@@ -23,8 +25,9 @@ public:
 
     ~CStateMachine();
 
+
     void Initialise(SFactoryComponentList& list);
-    void Process();
+    bool task();
     void Finalise();
 
 private:

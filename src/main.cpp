@@ -15,9 +15,11 @@ int main(int argc, char *argv[])
 
     core.CoreInit();
 
-    for(int i=0; i<5; ++i)
+    while(true)
     {
-        core.CoreRun();
+        bool result = core.CoreRun();
+        if(!result)
+            break;
     }
 
     core.CoreStop();

@@ -7,22 +7,14 @@
  * without the express permission of the copyright holder
  *****************************************************************/
 
-#ifndef FACTORYLIST_H
-#define FACTORYLIST_H
+#ifndef DFW_SM_ISTATEMACHINEBASE_H
+#define DFW_SM_ISTATEMACHINEBASE_H
 
-class CStateMachine;
-class CLevelTest;
-class CLevelExit;
-class CModuleTest;
-
-#include <memory>
-
-struct SFactoryComponentList
+class IStateMachineBase
 {
-    std::shared_ptr<CStateMachine> p_stateMachine;
-    std::shared_ptr<CLevelTest> p_levelTest;
-    std::shared_ptr<CLevelExit> p_levelExit;
-    std::shared_ptr<CModuleTest> p_moduleTest;
+public:
+    virtual ~IStateMachineBase(){}
+    virtual bool SetNextState(unsigned int)=0;
 };
 
-#endif // FACTORYLIST_H
+#endif // DFW_SM_ISTATEMACHINEBASE_H

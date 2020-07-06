@@ -21,21 +21,25 @@ set (Wfloat-conversion)
 #AddBaseComponent(StateMachine)
 #AddBaseComponent(Logger)
 
-set(BaseStateMachine ${CMAKE_SOURCE_DIR}/../DevFramework/StateMachine)
-set(BaseLogger ${CMAKE_SOURCE_DIR}/../DevFramework/Logger)
+set(BaseStateMachine ${CMAKE_SOURCE_DIR}/StateMachine)
+set(BaseLogger ${CMAKE_SOURCE_DIR}/Logger)
+set(BaseIOBuffer ${CMAKE_SOURCE_DIR}/IOBuffer)
 
 include_directories(${CMAKE_SOURCE_DIR}/src})
 include_directories(${BaseStateMachine})
 include_directories(${BaseLogger})
+include_directories(${BaseIOBuffer})
 
 file(GLOB_RECURSE SOURCES
     ${CMAKE_SOURCE_DIR}/src/*.cpp
- #   ${BaseStateMachine}/*.cpp
+    ${BaseStateMachine}/*.cpp
+    ${BaseIOBuffer}/*.cpp
     )
 
 file(GLOB_RECURSE HEADERS
     ${CMAKE_SOURCE_DIR}/src/*.h
- #   ${BaseStateMachine}/*.h
+    ${BaseStateMachine}/*.h
+    ${BaseIOBuffer}/*.h
     ${BaseLogger}/*.h
     )
 

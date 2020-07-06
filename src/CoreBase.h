@@ -28,7 +28,7 @@ public:
     ~CCoreBase() =default;                                      // destructor
 
     void CoreInit();
-    void CoreRun();
+    bool CoreRun();
     void CoreStop();
 
 private:

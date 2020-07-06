@@ -23,8 +23,8 @@ public:
     ~CFactoryBase() =default;
 
     void FactoryInit(int argc, char **argv);
+    void StateInit();
     SFactoryComponentList& FetchList();
-    void InitAll();
     void DestroyAll();
 
 private:

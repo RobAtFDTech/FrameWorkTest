@@ -24,7 +24,8 @@ public:
         : m_runCount(0)
     {}
     ~CLevelTest() override =default;
-    StateReturnCode StateEntry(SFactoryComponentList& list) override;
+    void Initialise(SFactoryComponentList& list) override;
+    StateReturnCode StateEntry() override;
     StateReturnCode StateRun() override;
     StateReturnCode StateExit() override;
 

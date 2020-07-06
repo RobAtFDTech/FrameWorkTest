@@ -9,13 +9,17 @@
 
 #include "StateMachine.h"
 
-#include "level_test.h"
 #include "FactoryList.h"
 #include "Logger.h"
 
+
+#include "level_test.h"
+#include "level_exit.h"
+
+
 enum States
 {
-    SM_State_TEST,
+    SM_State_TEST = 1,
     SM_State_EXIT,
 };
 
@@ -27,13 +31,35 @@ CStateMachine::~CStateMachine()
 void CStateMachine::Initialise(SFactoryComponentList& list)
 {
     p_List = &list;
+    AddNewState(SM_State_TEST, "TEST", p_List->p_levelTest);
+    AddNewState(SM_State_EXIT, "EXIT", p_List->p_levelExit);
+
+    SetInitState(SM_State_TEST);
 }
 
-void CStateMachine::Process()
+bool CStateMachine::task()
 {
-    p_List->p_levelTest->StateEntry(*p_List);
-    p_List->p_levelTest->StateRun();
-    p_List->p_levelTest->StateExit();
+    bool result = true;
+
+    IStateClassBase::StateReturnCode status = Process();
+    unsigned int currentState = GetCurrentState();
+
+    switch(currentState)
+    {
+        case SM_State_TEST:
+            if(status == IStateClassBase::StateReturnCode::StateCodeRunExitOK)
+                SetNextState(SM_State_EXIT);
+            break;
+        case SM_State_EXIT:
+            if(status == IStateClassBase::StateReturnCode::StateCodeRunExitOK)
+            {
+                Finalise();
+                result = false;
+            }
+            break;
+    }
+
+    return result;
 }
 
 void CStateMachine::Finalise()

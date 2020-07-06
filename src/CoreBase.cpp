@@ -10,7 +10,6 @@
 #include "CoreBase.h"
 
 #include "Logger.h"
-
 #include "FactoryBase.h"
 #include "StateMachine.h"
 
@@ -26,13 +25,14 @@ CCoreBase::CCoreBase(SCoreStartUpParameter parm)
 void CCoreBase::CoreInit()
 {
     m_factory.FactoryInit(m_startUpParms.argc, m_startUpParms.argv);
-    m_factory.InitAll();
+    m_factory.StateInit();
 }
 
-void CCoreBase::CoreRun()
+bool CCoreBase::CoreRun()
 {
     CLogger::Print(LOGLEV_RUN, "Running");
-    m_factory.FetchList().p_stateMachine->Process();
+    bool result = m_factory.FetchList().p_stateMachine->task();
+    return result;
 }
 
 void CCoreBase::CoreStop()

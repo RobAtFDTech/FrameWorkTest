@@ -10,10 +10,15 @@
 #include "FactoryBase.h"
 
 #include "StateMachine.h"
-#include "level_test.h"
-#include "module_test.h"
-
 #include "Logger.h"
+#include "IOBuffer.h"
+
+// state classes
+#include "level_test.h"
+#include "level_exit.h"
+
+//sub-modules
+#include "module_test.h"
 
 
 CFactoryBase::CFactoryBase()
@@ -33,18 +38,21 @@ void CFactoryBase::FactoryInit(int argc, char **argv)
 
     m_List.p_stateMachine = std::make_shared<CStateMachine>();
     m_List.p_levelTest = std::make_shared<CLevelTest>();
+    m_List.p_levelExit = std::make_shared<CLevelExit>();
     m_List.p_moduleTest =std::make_shared<CModuleTest>();
 
+}
+
+void CFactoryBase::StateInit()
+{
+    m_List.p_levelTest->Initialise(m_List);
+    m_List.p_levelExit->Initialise(m_List);
+    m_List.p_stateMachine->Initialise(m_List);
 }
 
 SFactoryComponentList& CFactoryBase::FetchList()
 {
     return m_List;
-}
-
-void CFactoryBase::InitAll()
-{
-    m_List.p_stateMachine->Initialise(m_List);
 }
 
 void CFactoryBase::DestroyAll()
