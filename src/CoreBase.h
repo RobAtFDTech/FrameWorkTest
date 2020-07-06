@@ -10,17 +10,13 @@
 #ifndef COREBASE_H
 #define COREBASE_H
 
-struct SCoreStartUpParameter {
-    int argc;
-    char **argv;
-};
-
-class CFactoryBase;
+class CFactory;
+struct SFactoryComponentList;
 
 class CCoreBase final
 {
 public:
-    CCoreBase(SCoreStartUpParameter parm);                      // constructor
+    CCoreBase();                                                 // constructor
     CCoreBase(const CCoreBase& other)=delete;                   // copy constructor
     CCoreBase(CCoreBase&& other) noexcept =delete;              // move constructor
     CCoreBase& operator=(const CCoreBase& other)=default;       // copy assignment
@@ -29,11 +25,14 @@ public:
 
     void CoreInit();
     bool CoreRun();
+
+    bool CoreSetData(int data);
+
     void CoreStop();
 
 private:
-    CFactoryBase& m_factory;
-    SCoreStartUpParameter m_startUpParms;
+    CFactory& m_factory;
+    SFactoryComponentList *m_List;
 
 };
 

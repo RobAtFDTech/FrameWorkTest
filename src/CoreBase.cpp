@@ -9,33 +9,41 @@
 
 #include "CoreBase.h"
 
-#include "Logger.h"
 #include "FactoryBase.h"
+#include "FactoryList.h"
+#include "Logger.h"
+
+
 #include "StateMachine.h"
+#include "IODispatcher.h"
 
-static CFactoryBase factory;
+static CFactory factory;
 
-CCoreBase::CCoreBase(SCoreStartUpParameter parm)
+CCoreBase::CCoreBase()
     : m_factory(factory)
-    , m_startUpParms(parm)
 {
 
 }
 
 void CCoreBase::CoreInit()
 {
-    m_factory.FactoryInit(m_startUpParms.argc, m_startUpParms.argv);
+    m_factory.FactoryInit();
     m_factory.StateInit();
+    m_List = &m_factory.FetchList();
 }
 
 bool CCoreBase::CoreRun()
 {
     CLogger::Print(LOGLEV_RUN, "Running");
-    bool result = m_factory.FetchList().p_stateMachine->task();
-    return result;
+    return m_List->p_stateMachine->task();
+}
+
+bool CCoreBase::CoreSetData(int data)
+{
+    return m_List->p_iobuffer->Write(1, data);
 }
 
 void CCoreBase::CoreStop()
 {
-    m_factory.FetchList().p_stateMachine->Finalise();
+    m_List->p_stateMachine->Finalise();
 }

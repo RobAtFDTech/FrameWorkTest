@@ -9,14 +9,17 @@
 
 #include "CoreBase.h"
 
-int main(int argc, char *argv[])
+int main(int, char *[])
 {
-    CCoreBase core({argc, argv});
+    CCoreBase core;
 
     core.CoreInit();
 
+    int data=0;
     while(true)
     {
+        core.CoreSetData(data+=10);
+
         bool result = core.CoreRun();
         if(!result)
             break;

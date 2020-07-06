@@ -15,11 +15,18 @@ class CLevelTest;
 class CLevelExit;
 class CModuleTest;
 
+namespace BaseService{
+    namespace IOBuffer{
+        class CIODispatcher;
+    };
+};
+
 #include <memory>
 
 struct SFactoryComponentList
 {
     std::shared_ptr<CStateMachine> p_stateMachine;
+    std::shared_ptr<BaseService::IOBuffer::CIODispatcher> p_iobuffer;
     std::shared_ptr<CLevelTest> p_levelTest;
     std::shared_ptr<CLevelExit> p_levelExit;
     std::shared_ptr<CModuleTest> p_moduleTest;

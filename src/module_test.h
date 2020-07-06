@@ -21,8 +21,8 @@ public:
     void Initialise(){
         CLogger::Print(LOGLEV_RUN, "--------> CModuleTest Init");
     }
-    void Process(){
-        CLogger::Print(LOGLEV_RUN, "--------> CModuleTest Process");
+    void Process(int data){
+        CLogger::Print(LOGLEV_RUN, "--------> CModuleTest Process: ", data);
     }
     void Terminate(){
         CLogger::Print(LOGLEV_RUN, "--------> CModuleTest Terminate");

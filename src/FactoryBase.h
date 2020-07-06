@@ -12,24 +12,21 @@
 
 #include "FactoryList.h"
 
-class CFactoryBase final
+class CFactory
 {
 public:
-    CFactoryBase();
-    CFactoryBase(const CFactoryBase& other)=delete;
-    CFactoryBase(CFactoryBase&& other) noexcept =delete;
-    CFactoryBase& operator=(const CFactoryBase& other)=default;
-    CFactoryBase& operator=(CFactoryBase&& other) noexcept =default;
-    ~CFactoryBase() =default;
+    CFactory()=default;
+    CFactory(const CFactory& other)=delete;
+    CFactory(CFactory&& other) noexcept =delete;
+    CFactory& operator=(const CFactory& other)=default;
+    CFactory& operator=(CFactory&& other) noexcept =default;
+    ~CFactory() =default;
 
-    void FactoryInit(int argc, char **argv);
+    void FactoryInit();
     void StateInit();
     SFactoryComponentList& FetchList();
-    void DestroyAll();
 
 private:
-    int m_argc;
-    char **m_argv;
     SFactoryComponentList m_List;
 };
 

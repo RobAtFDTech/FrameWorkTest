@@ -11,7 +11,7 @@
 
 #include "FactoryList.h"
 #include "module_test.h"
-
+#include "IODispatcher.h"
 #include "Logger.h"
 
 
@@ -30,7 +30,9 @@ IStateClassBase::StateReturnCode CLevelTest::StateEntry()
 IStateClassBase::StateReturnCode CLevelTest::StateRun()
 {
     CLogger::Print(LOGLEV_RUN, "StateRun ", ++m_runCount);
-    p_list->p_moduleTest->Process();
+    int data;
+    if(p_list->p_iobuffer->Read(1, data))
+        p_list->p_moduleTest->Process(data);
 
     if(m_runCount > 5)
         return StateCodeRunExitOK;
